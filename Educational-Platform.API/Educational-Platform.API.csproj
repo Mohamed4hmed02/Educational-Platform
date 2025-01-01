@@ -1,0 +1,33 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <InvariantGlobalization>false</InvariantGlobalization>
+    <RootNamespace>Educational_Platform.API</RootNamespace>
+  </PropertyGroup>
+
+	<ItemGroup>
+		<InternalsVisibleTo Include="Hossam-Project.Test" />
+	</ItemGroup>
+		
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="9.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="5.1.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Serilog.AspNetCore" Version="9.0.0" />
+    <PackageReference Include="Serilog.Sinks.File" Version="6.0.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="7.2.0" />
+  </ItemGroup>
+		
+  <ItemGroup>
+    <ProjectReference Include="..\Educational-Platform.Application\Educational-Platform.Application.csproj" />
+    <ProjectReference Include="..\Educational-Platform.Domain\Educational-Platform.Domain.csproj" />
+    <ProjectReference Include="..\Educational-Platform.Infrastructure\Educational-Platform.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>

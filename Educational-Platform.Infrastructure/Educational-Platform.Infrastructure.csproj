@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <RootNamespace>Educational_Platform.Infrastructure</RootNamespace>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Google.Apis.Drive.v3" Version="1.68.0.3627" />
+    <PackageReference Include="Google.Apis.Sheets.v4" Version="1.68.0.3624" />
+    <PackageReference Include="Hangfire.AspNetCore" Version="1.8.17" />
+    <PackageReference Include="Hangfire.SqlServer" Version="1.8.17" />
+    <PackageReference Include="NPOI" Version="2.7.2" />
+    <PackageReference Include="VimeoDotNet" Version="3.3.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Educational-Platform.Application\Educational-Platform.Application.csproj" />
+    <ProjectReference Include="..\Educational-Platform.Domain\Educational-Platform.Domain.csproj" />
+  </ItemGroup>
+
+</Project>
