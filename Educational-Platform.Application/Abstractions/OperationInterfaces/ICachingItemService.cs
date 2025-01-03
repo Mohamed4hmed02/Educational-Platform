@@ -1,8 +1,8 @@
-﻿using Educational_Platform.Domain.Enums;
+﻿using Educational_Platform.Application.Enums;
 
 namespace Educational_Platform.Application.Abstractions.OperationInterfaces
 {
-	public interface ICachingItemService
+    public interface ICachingItemService
 	{
 		/// <summary>
 		/// Caching Items Within Database And Return These Items As Object, If Items Is Already Cached It Won't Read It From Database Again,

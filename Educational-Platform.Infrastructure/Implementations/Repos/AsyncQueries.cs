@@ -10,7 +10,7 @@ namespace Educational_Platform.Infrastructure.Implementations.Repos
 	public class AsyncQueries<TEntity>(
 		AppDbContext appDbContext,
 		ILogger<AsyncRepository<TEntity>> log,
-		bool isTracking) : IAsyncQueries<TEntity> where TEntity : class
+		bool isTracking) : IQueries<TEntity> where TEntity : class
 	{
 
 		private IQueryable<TEntity> _query = appDbContext.Set<TEntity>();

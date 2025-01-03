@@ -1,7 +1,7 @@
 ﻿using Educational_Platform.Application.Abstractions.Infrastructure;
+using Educational_Platform.Application.Models.CommonModels;
 using Educational_Platform.Domain.Entities;
 using Educational_Platform.Domain.Enums;
-using Educational_Platform.Domain.Models;
 using Educational_Platform.Infrastructure.Options;
 using Microsoft.Extensions.Options;
 

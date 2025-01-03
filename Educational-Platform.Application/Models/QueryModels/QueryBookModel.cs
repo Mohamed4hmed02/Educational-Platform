@@ -3,7 +3,7 @@ using Educational_Platform.Domain.Enums;
 
 namespace Educational_Platform.Application.Models.QueryModels
 {
-	public class QueryBookModel
+    public class QueryBookModel
 	{
 		public int Id { get; set; }
 		public required string Code { get; set; }

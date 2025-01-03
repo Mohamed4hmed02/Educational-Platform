@@ -8,7 +8,7 @@ using Educational_Platform.Domain.Enums;
 
 namespace Educational_Platform.Application.Services.TopicServices
 {
-	public class TopicQueryServices(
+    public class TopicQueryServices(
 		IUnitOfWork unitOfWork,
 		IStorageService storageServices) : ITopicQueryServices
 	{

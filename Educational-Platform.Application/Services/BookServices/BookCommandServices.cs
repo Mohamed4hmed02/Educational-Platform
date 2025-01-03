@@ -1,14 +1,15 @@
 ﻿using System.Data;
-using FluentValidation;
 using Educational_Platform.Application.Abstractions.BookInterfaces;
 using Educational_Platform.Application.Abstractions.Infrastructure;
 using Educational_Platform.Application.Abstractions.OperationInterfaces;
-using Educational_Platform.Application.Extensions;
+using Educational_Platform.Application.Enums;
 using Educational_Platform.Application.Models.CommandModels;
+using Educational_Platform.Domain.Abstractions;
 using Educational_Platform.Domain.Abstractions.InfrastructureAbstractions.StorageAbstractions;
 using Educational_Platform.Domain.Entities;
 using Educational_Platform.Domain.Enums;
 using Educational_Platform.Domain.Exceptions;
+using Educational_Platform.Domain.Extensions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 
@@ -18,7 +19,7 @@ namespace Educational_Platform.Application.Services.BookServices
         IUnitOfWork unitOfWork,
         IStorageService storageServices,
         ICachingItemService caching,
-        IValidator<Book> validator,
+        IEntityValidator<Book> validator,
         ILogger<BookCommandServices> log) : IBookCommandServices
     {
         public async ValueTask CreateAsync(CommandBookModel entity)
@@ -154,12 +155,7 @@ namespace Educational_Platform.Application.Services.BookServices
 
         private async void ValidateBook(Book book)
         {
-            var result = validator.Validate(book);
-            if (!result.IsValid)
-            {
-                throw new InvalidDataException(result.Errors.GetAllErrorsMessages())
-                    .AddToExceptionData(ExceptionKeys.StatusCodeKey, StatusCodes.Status400BadRequest);
-            }
+            validator.ValidateEntity(book);
 
             if (await unitOfWork.BooksRepository.IsExistAsync(b => b.Code == book.Code && b.Id != book.Id))
                 throw new DuplicateNameException("Book New Code Is Already Exist")

@@ -5,7 +5,7 @@ using System.Text.Json;
 
 namespace Educational_Platform.Application.Extensions
 {
-	public static class StorageExtensions
+    public static class StorageExtensions
 	{
 		public static CommandQuizModel? GetQuiz(this IStorageService storageServices, string? quizName)
 		{

@@ -1,8 +1,8 @@
 ﻿using Educational_Platform.Application.Abstractions.Infrastructure;
+using Educational_Platform.Application.Enums;
 using Educational_Platform.Application.Models.QueryModels;
 using Educational_Platform.Domain.Abstractions.InfrastructureAbstractions;
 using Educational_Platform.Domain.Abstractions.InfrastructureAbstractions.StorageAbstractions;
-using Educational_Platform.Domain.Enums;
 
 namespace Educational_Platform.Application.Aggregates.CachingItemsService.Strategies
 {

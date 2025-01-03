@@ -4,7 +4,7 @@ using Educational_Platform.Domain.Entities;
 
 namespace Educational_Platform.Application.Abstractions.Infrastructure.SpecialRepos
 {
-	public interface ITopicAsyncRepository : IAsyncRepositoryBase<Topic>
+	public interface ITopicAsyncRepository : IRepositoryBase<Topic>
 	{
 		ValueTask<IEnumerable<QueryTopicModel>> GetTopicsModelAsync(IEnumerable<int> unitIds);
 		ValueTask DeleteAsync(IEnumerable<int> topicsIds);

@@ -6,6 +6,7 @@ using Educational_Platform.Application.Models.CommonModels;
 using Educational_Platform.Domain.Abstractions.InfrastructureAbstractions.StorageAbstractions;
 using Educational_Platform.Domain.Enums;
 using Educational_Platform.Domain.Exceptions;
+using Educational_Platform.Domain.Extensions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -14,7 +15,7 @@ using System.Text.Json;
 
 namespace Educational_Platform.Application.Services.QuizServices
 {
-	public class QuizzesCommandService(
+    public class QuizzesCommandService(
 		IUnitOfWork unitOfWork,
 		IStorageService storageServices,
 		ILogger<QuizzesCommandService> logger) : IQuizCommandService

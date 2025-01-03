@@ -8,7 +8,7 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace Educational_Platform.Infrastructure.Implementations.Storages
 {
-	public class HostStorageServices : IStorageService
+    public class HostStorageServices : IStorageService
 	{
 		private readonly string _imagesWritePath;
 		private readonly string _referencesWritePath;

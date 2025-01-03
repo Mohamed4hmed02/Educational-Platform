@@ -5,6 +5,7 @@ using Educational_Platform.Application.Abstractions.SecurityInterfaces;
 using Educational_Platform.Application.Models.CommandModels;
 using Educational_Platform.Application.Models.CommonModels;
 using Educational_Platform.Domain.Exceptions;
+using Educational_Platform.Domain.Extensions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 

@@ -31,17 +31,8 @@ namespace Educational_Platform.Infrastructure
 	{
 		public static IServiceCollection AddInfrastructureDependencies(
 			this IServiceCollection services,
-			IConfigurationManager configuration,
-			IWebHostEnvironment environment)
+			IConfigurationManager configuration)
 		{
-			#region AddJsonFiles
-			configuration.AddJsonFile("Settings\\infrastructuresettings.json");
-			if (environment.IsDevelopment())
-				configuration.AddJsonFile("Settings\\infrastructuresettings.development.json");
-			else if (environment.IsStaging())
-				configuration.AddJsonFile("Settings\\infrastructuresettings.staging.json");
-			#endregion
-
 			#region DataBase
 			services.AddDbContext<AppDbContext>(op =>
 			{
@@ -75,7 +66,7 @@ namespace Educational_Platform.Infrastructure
 				.AddScoped<IReportServices, ReportServices>()
 				.AddSingleton<IStorageService, HostStorageServices>()
 				.AddScoped<IEmailSenderServices, SmtpClientEmailSenderServices>()
-				.AddScoped(typeof(IAsyncRepositoryBase<>), typeof(AsyncRepository<>))
+				.AddScoped(typeof(IRepositoryBase<>), typeof(AsyncRepository<>))
 				.AddScoped<IUnitOfWork, UnitOfWork>()
 				.AddScoped<PaymentGatewayAbstractService, PaypalPaymentGatewayService>()
 				.AddScoped<PaypalPaymentGatewayServiceBase>()

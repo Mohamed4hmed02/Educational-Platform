@@ -4,7 +4,7 @@ using Educational_Platform.Domain.Entities;
 
 namespace Educational_Platform.Application.Abstractions.Infrastructure.SpecialRepos
 {
-    public interface ICartDetailAsyncRepository : IAsyncRepositoryBase<CartDetail>
+    public interface ICartDetailAsyncRepository : IRepositoryBase<CartDetail>
     {
         ValueTask<IEnumerable<QueryCartDetailModel>> GetDetailsAsync(object cartId);
     }

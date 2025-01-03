@@ -1,15 +1,16 @@
 ﻿using System.Data;
-using FluentValidation;
 using Educational_Platform.Application.Abstractions.CourseInterfaces;
 using Educational_Platform.Application.Abstractions.Infrastructure;
 using Educational_Platform.Application.Abstractions.OperationInterfaces;
 using Educational_Platform.Application.Abstractions.UnitInterfaces;
-using Educational_Platform.Application.Extensions;
+using Educational_Platform.Application.Enums;
 using Educational_Platform.Application.Models.CommandModels;
+using Educational_Platform.Domain.Abstractions;
 using Educational_Platform.Domain.Abstractions.InfrastructureAbstractions.StorageAbstractions;
 using Educational_Platform.Domain.Entities;
 using Educational_Platform.Domain.Enums;
 using Educational_Platform.Domain.Exceptions;
+using Educational_Platform.Domain.Extensions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 
@@ -20,7 +21,7 @@ namespace Educational_Platform.Application.Services.CourseServices
             IUnitCommandServices unitServices,
             IStorageService storageServices,
             ICachingItemService caching,
-            IValidator<Course> validator,
+            IEntityValidator<Course> validator,
             ILogger<CourseCommandServices> log) : ICourseCommandServices
     {
         public async ValueTask CreateAsync(CommandCourseModel entity)
@@ -123,12 +124,7 @@ namespace Educational_Platform.Application.Services.CourseServices
 
         private async ValueTask ValidateCourseAsync(CommandCourseModel model)
         {
-            var result = validator.Validate(model.GetCourse(unitOfWork));
-            if (!result.IsValid)
-            {
-                throw new InvalidDataException(result.Errors.GetAllErrorsMessages())
-                    .AddToExceptionData(ExceptionKeys.StatusCodeKey, StatusCodes.Status400BadRequest);
-            }
+            validator.ValidateEntity(model.GetCourse(unitOfWork));
 
             if (await unitOfWork.CoursesRepository.IsExistAsync(c => c.Name == model.Name && c.Id != model.Id))
                 throw new DuplicateNameException("A Course With Same Name Is Exist")

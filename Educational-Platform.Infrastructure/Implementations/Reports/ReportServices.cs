@@ -11,7 +11,7 @@ using System.Net.Mail;
 
 namespace Educational_Platform.Infrastructure.Implementations.Reports
 {
-	public class ReportServices(
+    public class ReportServices(
 		IUnitOfWork unitOfWork,
 		IEmailSenderServices emailSender,
 		IConfiguration configuration,

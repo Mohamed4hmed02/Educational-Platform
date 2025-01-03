@@ -5,7 +5,6 @@ using Educational_Platform.Application.Enums;
 using Educational_Platform.Application.Extensions;
 using Educational_Platform.Application.Models.CommandModels;
 using Educational_Platform.Application.Models.QueryModels;
-using Educational_Platform.Domain.Enums;
 using Educational_Platform.Domain.Exceptions;
 
 namespace Educational_Platform.Application.Services.UnitServices

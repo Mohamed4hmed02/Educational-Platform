@@ -3,7 +3,9 @@ using Educational_Platform.Application.Abstractions.Infrastructure;
 using Educational_Platform.Application.Abstractions.UserCourseInterfaces;
 using Educational_Platform.Application.Models.CommandModels;
 using Educational_Platform.Domain.Entities;
+using Educational_Platform.Domain.Enums;
 using Educational_Platform.Domain.Exceptions;
+using Educational_Platform.Domain.Extensions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using System.Data;
@@ -67,7 +69,7 @@ namespace Educational_Platform.Application.Services.UserCourseServices
 					.ReadAsync(d =>
 					d.CartId == payment.Id &&
 					d.ProductId == courseId &&
-					d.ProductType == Domain.Enums.ProductTypes.Course);
+					d.ProductType == ProductTypes.Course);
 
 				await detailCommandServices.RemoveAsync(CommandCartDetailModel.GetCartDetailModel(detail));
 			}

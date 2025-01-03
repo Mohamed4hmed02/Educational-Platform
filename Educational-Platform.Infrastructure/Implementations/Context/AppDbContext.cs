@@ -1,5 +1,5 @@
 ﻿using Educational_Platform.Domain.Entities;
-using Educational_Platform.Domain.EntitiesSpecification;
+using Educational_Platform.Infrastructure.EntitiesSpecification;
 using Microsoft.EntityFrameworkCore;
 
 namespace Educational_Platform.Infrastructure.Implementations.Context

@@ -6,11 +6,11 @@
 		/// Throws Exception If Not Valid
 		/// </summary>
 		/// <param name="entity"></param>
-		void Validate(TEntity entity);
+		void ValidateEntity(TEntity entity);
 		/// <summary>
 		/// Throws Exception If Not Valid
 		/// </summary>
 		/// <param name="entities"></param>
-		void Validate(IEnumerable<TEntity> entities);
+		void ValidateEntity(IEnumerable<TEntity> entities);
 	}
 }

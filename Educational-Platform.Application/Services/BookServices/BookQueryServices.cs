@@ -12,37 +12,37 @@ using Microsoft.Extensions.Options;
 
 namespace Educational_Platform.Application.Services.BookServices
 {
-	public class BookQueryServices(
-		IUnitOfWork unitOfWork,
-		IStorageService storageServices,
-		ICachingItemService cache,
-		IOptionsMonitor<PaginationOptions> options) : IBookQueryServices
-	{
+    public class BookQueryServices(
+        IUnitOfWork unitOfWork,
+        IStorageService storageServices,
+        ICachingItemService cache,
+        IOptionsMonitor<PaginationOptions> options) : IBookQueryServices
+    {
 
-		public async ValueTask<QueryBookModel> GetBookInDetailAsync(object entityId)
-		{
-			var book = await unitOfWork.BooksRepository.AsNoTracking().ReadAsync(b => b.Id.Equals(entityId),
-				b => (QueryBookModel)b);
+        public async ValueTask<QueryBookModel> GetBookInDetailAsync(object entityId)
+        {
+            var book = await unitOfWork.BooksRepository.AsNoTracking().ReadAsync(b => b.Id.Equals(entityId),
+                b => (QueryBookModel)b);
 
-			book.ImagePath = storageServices.GetFileViewPath(book.ImagePath, FileTypeEnum.Image);
-			return book;
-		}
+            book.ImagePath = storageServices.GetFileViewPath(book.ImagePath, FileTypeEnum.Image);
+            return book;
+        }
 
-		public async Task<object> GetPageAsync(int page, int size, ModelTypeEnum modelType)
-		{
-			int pageSize = options.CurrentValue.PageSize;
-			if (modelType == ModelTypeEnum.Query)
-				return ((IEnumerable<QueryBookModel>)cache.CacheItemAndGet(CachedItemType.Book, false))
-					.GetPageFromList(page, pageSize, size);
-			else if (modelType == ModelTypeEnum.Command)
-				return await unitOfWork.BooksRepository
-				.Query
-				.AsNoTracking()
-				.OrderBy(c => c.Id)
-				.GetPageFromList(page, pageSize, size)
-				.ToArrayAsync();
+        public async Task<object> GetPageAsync(int page, int size, ModelTypeEnum modelType)
+        {
+            int pageSize = options.CurrentValue.PageSize;
+            if (modelType == ModelTypeEnum.Query)
+                return ((IEnumerable<QueryBookModel>)cache.CacheItemAndGet(CachedItemType.Book, false))
+                    .GetPageFromList(page, pageSize, size);
+            else if (modelType == ModelTypeEnum.Command)
+                return await unitOfWork.BooksRepository
+                .Query
+                .AsNoTracking()
+                .OrderBy(c => c.Id)
+                .GetPageFromList(page, pageSize, size)
+                .ToArrayAsync();
 
-			return new object();
-		}
-	}
+            return new object();
+        }
+    }
 }

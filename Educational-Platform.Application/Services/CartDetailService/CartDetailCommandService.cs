@@ -5,6 +5,7 @@ using Educational_Platform.Domain.Abstractions;
 using Educational_Platform.Domain.Entities;
 using Educational_Platform.Domain.Enums;
 using Educational_Platform.Domain.Exceptions;
+using Educational_Platform.Domain.Extensions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 
@@ -33,7 +34,7 @@ namespace Educational_Platform.Application.Services.PaymentDetailServices
 
                 cartDetail.Quantity += model.Quantity;
 
-                detailValidation.Validate(cartDetail);
+                detailValidation.ValidateEntity(cartDetail);
 
                 log.LogInformation("A Cart Detail Is Updated To {@CartDetail}", CommandCartDetailModel.GetCartDetailModel(cartDetail));
             }
@@ -41,7 +42,7 @@ namespace Educational_Platform.Application.Services.PaymentDetailServices
             {
                 CartDetail detail = model.GetCartDetail();
 
-                detailValidation.Validate(detail);
+                detailValidation.ValidateEntity(detail);
 
                 await unitOfWork.CartDetailsRepository.CreateAsync(detail);
 

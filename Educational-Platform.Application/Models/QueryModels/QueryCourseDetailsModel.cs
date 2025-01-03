@@ -4,7 +4,7 @@ using Educational_Platform.Domain.Enums;
 
 namespace Educational_Platform.Application.Models.QueryModels
 {
-	public class QueryCourseDetailsModel
+    public class QueryCourseDetailsModel
 	{
 		public int Id { get; set; }
 		public string? IntroVideoUrl { get; set; }

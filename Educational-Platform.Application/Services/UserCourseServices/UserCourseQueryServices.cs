@@ -3,6 +3,7 @@ using Educational_Platform.Application.Abstractions.UserCourseInterfaces;
 using Educational_Platform.Application.Models.QueryModels;
 using Educational_Platform.Domain.Abstractions.InfrastructureAbstractions;
 using Educational_Platform.Domain.Exceptions;
+using Educational_Platform.Domain.Extensions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using System.Drawing;
@@ -11,7 +12,7 @@ using System.Net.Mail;
 
 namespace Educational_Platform.Application.Services.UserCourseServices
 {
-	public class UserCourseQueryServices(
+    public class UserCourseQueryServices(
 		IUnitOfWork unitOfWork,
 		IEmailSenderServices emailSender,
 		ILogger<UserCourseQueryServices> logger) : IUserCourseQueryServices

@@ -1,104 +1,102 @@
-using Hangfire;
+using System.Threading.RateLimiting;
 using Educational_Platform.API.Extensions;
 using Educational_Platform.API.Middlewares;
 using Educational_Platform.Application;
 using Educational_Platform.Infrastructure;
+using Hangfire;
 using Serilog;
-using System.Threading.RateLimiting;
 
 internal class Program
 {
-	private static void Main(string[] args)
-	{
-		var builder = WebApplication.CreateBuilder(args);
+    private static void Main(string[] args)
+    {
+        var builder = WebApplication.CreateBuilder(args);
 
-		builder.Configuration.AddJsonFile("Settings\\apisettings.json");
+        builder.Configuration.AddJsonFile("apisettings.json");
 
-		builder.Environment.EnvironmentName = builder.Configuration["ENVIRONMENT"] ?? "Development";
+        builder.Environment.EnvironmentName = builder.Configuration["ENVIRONMENT"] ?? "Development";
 
-		builder.Services.AddControllers();
+        builder.Services.AddControllers();
 
-		builder.Services.AddEndpointsApiExplorer();
+        builder.Services.AddEndpointsApiExplorer();
 
-		if (builder.Environment.IsDevelopment())
-		{
-			builder.Configuration.AddJsonFile("Settings\\apisettings.development.json");
-			builder.Services.AddSwaggerGen();
-		}
-		else if (builder.Environment.IsStaging())
-			builder.Configuration.AddJsonFile("Settings\\apisettings.staging.json");
+        if (builder.Environment.IsDevelopment())
+        {
+            builder.Configuration.AddJsonFile("apisettings.development.json");
+            builder.Services.AddSwaggerGen();
+        }
 
-		builder.Services.AddRateLimiter(options =>
-		{
-			options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
+        builder.Services.AddRateLimiter(options =>
+        {
+            options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
 
-			options.GlobalLimiter = PartitionedRateLimiter.Create<HttpContext, string>(context =>
-			RateLimitPartition.GetFixedWindowLimiter(
-			partitionKey: context.User.Identity?.Name ?? context.Request.Headers.Host.ToString(),
-			factory: partition => new FixedWindowRateLimiterOptions
-			{
-				AutoReplenishment = true,
-				PermitLimit = 100,         // Number of requests allowed
-				Window = TimeSpan.FromMinutes(1)  // Time window
-			}));
-		});
+            options.GlobalLimiter = PartitionedRateLimiter.Create<HttpContext, string>(context =>
+            RateLimitPartition.GetFixedWindowLimiter(
+            partitionKey: context.User.Identity?.Name ?? context.Request.Headers.Host.ToString(),
+            factory: partition => new FixedWindowRateLimiterOptions
+            {
+                AutoReplenishment = true,
+                PermitLimit = 100,         // Number of requests allowed
+                Window = TimeSpan.FromMinutes(1)  // Time window
+            }));
+        });
 
-		builder.Host.UseSerilog((context, config) =>
-		{
-			config.ReadFrom.Configuration(context.Configuration);
-		});
+        builder.Host.UseSerilog((context, config) =>
+        {
+            config.ReadFrom.Configuration(context.Configuration);
+        });
 
-		builder.Services.AddCors(opt =>
-		{
-			opt.AddPolicy("Any", bld =>
-			{
-				bld.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
-			});
+        builder.Services.AddCors(opt =>
+        {
+            opt.AddPolicy("Any", bld =>
+            {
+                bld.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+            });
 
-			opt.AddPolicy("Production", bld =>
-			{
-				bld.WithOrigins("https://evidencebased-fitness.com").AllowAnyHeader().AllowAnyMethod();
-			});
-		});
+            opt.AddPolicy("Production", bld =>
+            {
+                bld.WithOrigins("https://evidencebased-fitness.com").AllowAnyHeader().AllowAnyMethod();
+            });
+        });
 
-		// Add Layers Dependencies
-		builder.Services
-			.AddPresentationDependencies(builder.Configuration)
-			.AddInfrastructureDependencies(builder.Configuration, builder.Environment)
-			.AddApplicationDependencies(builder.Configuration, builder.Environment);
+        // Add Layers Dependencies
+        builder.Services
+            .AddPresentationDependencies(builder.Configuration)
+            .AddInfrastructureDependencies(builder.Configuration)
+            .AddApplicationDependencies(builder.Configuration);
 
-		var app = builder.Build();
+        var app = builder.Build();
 
-		if (app.Environment.IsStaging())
-			app.UseCors("Any");
-		else if (app.Environment.IsProduction())
-			app.UseCors("Any");
+        if (app.Environment.IsStaging())
+            app.UseCors("Any");
+        else if (app.Environment.IsProduction())
+            app.UseCors("Any");
 
-		app.UseSerilogRequestLogging();
+        app.UseSerilogRequestLogging();
 
-		app.UseMiddleware<GlobalExceptionHandlerMiddleware>();
+        app.UseMiddleware<GlobalExceptionHandlerMiddleware>();
 
-		if (app.Environment.IsDevelopment())
-		{
-			app.UseSwagger();
-			app.UseSwaggerUI();
-			app.UseHangfireDashboard();
-		}
-		else
-		{
-			app.UseMiddleware<APIGatewayMiddleware>();
-		}
+        if (app.Environment.IsDevelopment())
+        {
+            app.UseSwagger();
+            app.UseSwaggerUI();
+            app.UseHangfireDashboard();
+        }
+        else
+        {
+            app.UseMiddleware<APIGatewayMiddleware>();
+        }
 
-		app.UseHttpsRedirection();
+        app.UseHttpsRedirection();
 
-		app.UseAuthentication();
+        app.UseAuthentication();
 
-		app.UseAuthorization();
+        app.UseAuthorization();
 
-		app.UseRateLimiter();
+        app.UseRateLimiter();
 
-		app.MapControllers();
+        app.MapControllers();
 
-		app.Run();
-	}
+        app.Run();
+    }
 }

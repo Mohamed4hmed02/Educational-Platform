@@ -8,13 +8,12 @@ using Educational_Platform.Application.Models.QueryModels;
 using Educational_Platform.Application.Options;
 using Educational_Platform.Domain.Abstractions.InfrastructureAbstractions;
 using Educational_Platform.Domain.Abstractions.InfrastructureAbstractions.StorageAbstractions;
-using Educational_Platform.Domain.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
 namespace Educational_Platform.Application.Services.CourseServices
 {
-	public class CourseQueryServices(
+    public class CourseQueryServices(
 		IUnitOfWork unitOfWork,
 		ICachingItemService cache,
 		IStorageService storageServices,

@@ -1,5 +1,6 @@
 ﻿using Educational_Platform.Domain.Abstractions.InfrastructureAbstractions.ReposInterfaces;
 using Educational_Platform.Domain.Exceptions;
+using Educational_Platform.Domain.Extensions;
 using Educational_Platform.Infrastructure.Implementations.Context;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
@@ -8,16 +9,16 @@ using System.Linq.Expressions;
 
 namespace Educational_Platform.Infrastructure.Implementations.Repos
 {
-	public class AsyncRepository<TEntity>(
+    public class AsyncRepository<TEntity>(
 		AppDbContext appDbContext,
 		ILogger<AsyncRepository<TEntity>> log) :
-		AsyncQueries<TEntity>(appDbContext, log, true), IAsyncRepositoryBase<TEntity> where TEntity : class
+		AsyncQueries<TEntity>(appDbContext, log, true), IRepositoryBase<TEntity> where TEntity : class
 	{
 		private readonly DbSet<TEntity> _entity = appDbContext.Set<TEntity>();
 		protected readonly AppDbContext _appDbContext = appDbContext;
 		private readonly ILogger<AsyncRepository<TEntity>> log = log;
 
-		public IAsyncQueries<TEntity> AsNoTracking()
+		public IQueries<TEntity> AsNoTracking()
 		{
 			return new AsyncQueries<TEntity>(_appDbContext, log, false);
 		}

@@ -1,4 +1,5 @@
 ﻿using Educational_Platform.Domain.Exceptions;
+using Educational_Platform.Domain.Extensions;
 using Educational_Platform.Infrastructure.Implementations.PaymentGateways.Paypal.Data;
 using Educational_Platform.Infrastructure.Options;
 using Microsoft.AspNetCore.Http;
@@ -10,7 +11,7 @@ using System.Text.Json;
 
 namespace Educational_Platform.Infrastructure.Implementations.PaymentGateways.Paypal
 {
-	public sealed class PaypalPaymentGatewayServiceBase
+    public sealed class PaypalPaymentGatewayServiceBase
 	{
 		private readonly string ClientId;
 		private readonly string ClientSecret;

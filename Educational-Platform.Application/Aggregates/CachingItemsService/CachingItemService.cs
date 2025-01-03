@@ -1,5 +1,5 @@
 ﻿using Educational_Platform.Application.Abstractions.OperationInterfaces;
-using Educational_Platform.Domain.Enums;
+using Educational_Platform.Application.Enums;
 using Microsoft.Extensions.Logging;
 
 namespace Educational_Platform.Application.Aggregates.CachingItemsService

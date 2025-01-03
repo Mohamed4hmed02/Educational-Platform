@@ -6,12 +6,13 @@ using Educational_Platform.Domain.Abstractions.InfrastructureAbstractions.Storag
 using Educational_Platform.Domain.Entities;
 using Educational_Platform.Domain.Enums;
 using Educational_Platform.Domain.Exceptions;
+using Educational_Platform.Domain.Extensions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 
 namespace Educational_Platform.Application.Services.TopicServices
 {
-	public class TopicCommandServices(
+    public class TopicCommandServices(
 		IUnitOfWork unitOfWork,
 		IVideoHostServices hostServices,
 		IStorageService storageServices,

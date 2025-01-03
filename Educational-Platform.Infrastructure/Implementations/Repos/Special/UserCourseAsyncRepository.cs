@@ -3,6 +3,7 @@ using Educational_Platform.Application.Models.CommandModels;
 using Educational_Platform.Domain.Abstractions.InfrastructureAbstractions.ReposInterfaces;
 using Educational_Platform.Domain.Entities;
 using Educational_Platform.Domain.Exceptions;
+using Educational_Platform.Domain.Extensions;
 using Educational_Platform.Infrastructure.Implementations.Context;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
@@ -10,9 +11,9 @@ using System.Data;
 
 namespace Educational_Platform.Infrastructure.Implementations.Repos.Special
 {
-	public class UserCourseAsyncRepository(
+    public class UserCourseAsyncRepository(
 		AppDbContext appDbContext,
-		IAsyncRepositoryBase<User> userRepo,
+		IRepositoryBase<User> userRepo,
 		ILogger<AsyncRepository<UserCourse>> log) : AsyncRepository<UserCourse>(appDbContext, log), IUserCourseAsyncRepository
 	{
 		public async ValueTask AddCoursesToUserAsync(IEnumerable<CommandUserCourseModel> models)

@@ -6,15 +6,15 @@ namespace Educational_Platform.Application.Abstractions.Infrastructure
 {
     public interface IUnitOfWork : IDisposable
     {
-        IAsyncRepositoryBase<Admin> AdminsRepository { get; }
-        IAsyncRepositoryBase<Payment> PaymentsRepository { get; }
-        IAsyncRepositoryBase<Order> OrdersRepository { get; }
-        IAsyncRepositoryBase<OrderDetail> OrderDetailsRepository { get; }
+        IRepositoryBase<Admin> AdminsRepository { get; }
+        IRepositoryBase<Payment> PaymentsRepository { get; }
+        IRepositoryBase<Order> OrdersRepository { get; }
+        IRepositoryBase<OrderDetail> OrderDetailsRepository { get; }
         IBookAsyncRepository BooksRepository { get; }
-        IAsyncRepositoryBase<Course> CoursesRepository { get; }
+        IRepositoryBase<Course> CoursesRepository { get; }
         ICartAsyncRepository CartsRepository { get; }
         ICartDetailAsyncRepository CartDetailsRepository { get; }
-        IAsyncRepositoryBase<User> UsersRepository { get; }
+        IRepositoryBase<User> UsersRepository { get; }
         IOldUserCoursesAsyncRepository CoursesUserTakesRepository { get; }
         IUserCourseAsyncRepository UsersCoursesRepository { get; }
         ITopicAsyncRepository TopicsRepository { get; }

@@ -2,13 +2,12 @@
 using Educational_Platform.Application.Models.CommandModels;
 using Educational_Platform.Application.Models.CommonModels;
 using Educational_Platform.Domain.Abstractions.InfrastructureAbstractions;
-using Educational_Platform.Domain.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Educational_Platform.API.Controllers
 {
-	[Authorize]
+    [Authorize]
 	[Route("api/v1/[controller]/")]
 	[ApiController]
 	public class UsersController(

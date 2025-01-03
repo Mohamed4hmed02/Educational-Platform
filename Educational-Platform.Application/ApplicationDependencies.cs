@@ -34,12 +34,12 @@ using Educational_Platform.Application.Services.UserCourseServices;
 using Educational_Platform.Application.Services.UserServices;
 using Educational_Platform.Domain.Abstractions;
 using Educational_Platform.Domain.Entities;
-using Educational_Platform.Domain.Implementaions.Validators;
 using Educational_Platform.Infrastructure.Options;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Educational_Platform.Domain.Validators;
 
 namespace Educational_Platform.Application
 {
@@ -47,17 +47,8 @@ namespace Educational_Platform.Application
     {
         public static IServiceCollection AddApplicationDependencies(
             this IServiceCollection services,
-            IConfigurationManager configuration,
-            IWebHostEnvironment environment)
+            IConfigurationManager configuration)
         {
-            #region AddJsonFiles
-            configuration.AddJsonFile("Settings\\applicationsettings.json");
-            if (environment.IsDevelopment())
-                configuration.AddJsonFile("Settings\\applicationsettings.development.json");
-            else if (environment.IsStaging())
-                configuration.AddJsonFile("Settings\\applicationsettings.staging.json");
-            #endregion
-
             #region Options		
             services
                 .Configure<AppSecurityOptions>(configuration.GetSection("AppSecurity"))
@@ -102,9 +93,9 @@ namespace Educational_Platform.Application
 
             #region Validators
             services
-                .AddScoped<IValidator<User>, UserValidator>()
-                .AddScoped<IValidator<Book>, BookValidator>()
-                .AddScoped<IValidator<Course>, CourseValidator>()
+                .AddScoped<IEntityValidator<User>, UserValidator>()
+                .AddScoped<IEntityValidator<Book>, BookValidator>()
+                .AddScoped<IEntityValidator<Course>, CourseValidator>()
                 .AddScoped<IEntityValidator<CartDetail>, CartDetailValidator>();
             #endregion
 

@@ -3,41 +3,42 @@ using Educational_Platform.Application.Abstractions.Infrastructure.SpecialRepos;
 using Educational_Platform.Domain.Abstractions.InfrastructureAbstractions.ReposInterfaces;
 using Educational_Platform.Domain.Entities;
 using Educational_Platform.Domain.Exceptions;
+using Educational_Platform.Domain.Extensions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace Educational_Platform.Infrastructure.Implementations.Context
 {
-	public class UnitOfWork(
+    public class UnitOfWork(
 		AppDbContext dbContext,
-		IAsyncRepositoryBase<Admin> adminRepo,
+		IRepositoryBase<Admin> adminRepo,
 		IBookAsyncRepository bookRepo,
-		IAsyncRepositoryBase<Course> courseRepo,
+		IRepositoryBase<Course> courseRepo,
 		ICartAsyncRepository cartRepo,
 		ICartDetailAsyncRepository cartDetailRepo,
-		IAsyncRepositoryBase<User> userRepo,
+		IRepositoryBase<User> userRepo,
 		IUserCourseAsyncRepository userCourseRepo,
 		ITopicAsyncRepository topicRepo,
 		IOldUserCoursesAsyncRepository oldUserCoursesRepo,
 		IUnitAsyncRepository unitRepo,
-        IAsyncRepositoryBase<Payment> paymentRepo,
-        IAsyncRepositoryBase<Order> orderRepo,
-        IAsyncRepositoryBase<OrderDetail> orderDetailRepo,
+        IRepositoryBase<Payment> paymentRepo,
+        IRepositoryBase<Order> orderRepo,
+        IRepositoryBase<OrderDetail> orderDetailRepo,
         ILogger<UnitOfWork> log) : IUnitOfWork
 	{
-		public IAsyncRepositoryBase<Admin> AdminsRepository { get; } = adminRepo;
-		public IAsyncRepositoryBase<Payment> PaymentsRepository { get; } = paymentRepo;
+		public IRepositoryBase<Admin> AdminsRepository { get; } = adminRepo;
+		public IRepositoryBase<Payment> PaymentsRepository { get; } = paymentRepo;
 
         public IBookAsyncRepository BooksRepository { get; } = bookRepo;
 
-		public IAsyncRepositoryBase<Course> CoursesRepository { get; } = courseRepo;
+		public IRepositoryBase<Course> CoursesRepository { get; } = courseRepo;
 
 		public ICartAsyncRepository CartsRepository { get; } = cartRepo;
 
 		public ICartDetailAsyncRepository CartDetailsRepository { get; } = cartDetailRepo;
 
-		public IAsyncRepositoryBase<User> UsersRepository { get; } = userRepo;
+		public IRepositoryBase<User> UsersRepository { get; } = userRepo;
 
 		public IUserCourseAsyncRepository UsersCoursesRepository { get; } = userCourseRepo;
 
@@ -47,9 +48,9 @@ namespace Educational_Platform.Infrastructure.Implementations.Context
 
 		public IUnitAsyncRepository UnitsRepository { get; } = unitRepo;
 
-        public IAsyncRepositoryBase<Order> OrdersRepository => orderRepo;
+        public IRepositoryBase<Order> OrdersRepository => orderRepo;
 
-        public IAsyncRepositoryBase<OrderDetail> OrderDetailsRepository => orderDetailRepo;
+        public IRepositoryBase<OrderDetail> OrderDetailsRepository => orderDetailRepo;
 
         public void Dispose()
 		{

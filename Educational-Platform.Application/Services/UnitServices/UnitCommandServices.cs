@@ -2,10 +2,11 @@
 using Educational_Platform.Application.Abstractions.Infrastructure;
 using Educational_Platform.Application.Abstractions.TopicInterfaces;
 using Educational_Platform.Application.Abstractions.UnitInterfaces;
+using Educational_Platform.Application.Enums;
 using Educational_Platform.Application.Models.CommandModels;
 using Educational_Platform.Domain.Abstractions.InfrastructureAbstractions;
-using Educational_Platform.Domain.Enums;
 using Educational_Platform.Domain.Exceptions;
+using Educational_Platform.Domain.Extensions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 

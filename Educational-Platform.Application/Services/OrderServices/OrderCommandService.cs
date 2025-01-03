@@ -5,6 +5,7 @@ using Educational_Platform.Application.Abstractions.Orders;
 using Educational_Platform.Domain.Entities;
 using Educational_Platform.Domain.Enums;
 using Educational_Platform.Domain.Exceptions;
+using Educational_Platform.Domain.Extensions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 
